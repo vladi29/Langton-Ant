@@ -38,6 +38,6 @@ while True:                             # Loop infinito para mantener abierta la
             sys.exit
     for columna in Iterador(Ancho,margen,DimTablero):
         for fila in Iterador(Ancho,margen,DimTablero):
-            pygame.draw.rect(Ventana,negro,(columna,fila,margen,Alto))
+            pygame.draw.rect(Ventana,blanco,(columna,fila,margen,Alto))
             pygame.draw.rect(Ventana,azul,(columna + margen,fila + margen, Ancho,Alto))
     pygame.display.update()

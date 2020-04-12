@@ -8,11 +8,14 @@ from random import randint
 
 pygame.init()                           # A partir de esta linea funcionaran todas las instrucciones de pygame
 
+#-----Colores-----
+blanco = pygame.Color(255,255,255)
+negro = pygame.Color(0,0,0)
 color1 = pygame.Color(128,64,0)     #Madera
-color2 = pygame.Color(34,113,179)   #Azul claro
-color3 = pygame.Color(155,155,155)  #Gris
+#-----
+
 AnVen = 700
-AlVen = 400
+AlVen = 700
 AnTab = 300
 AlTab = 300
 (Xi,Yi) = (AnVen/2 - AnTab/2, AlVen/2 - AlTab/2)
@@ -20,11 +23,21 @@ Ventana = pygame.display.set_mode((AnVen,AlVen))
 pygame.display.set_caption('Hormiga de Langton')
 Ventana.fill(color1)
 
-pygame.draw.rect(Ventana,color3,(Xi,Yi, AnTab,AlTab))  #tablero de 200x200 pixeles
-pygame.draw.line(Ventana, color2, (Xi-2,Yi-2), (Xi+AnTab+2,Yi-2), 4)
-pygame.draw.line(Ventana, color2, (Xi+AnTab+2,Yi-2), (Xi+AnTab+2,Yi+AlTab+2), 4)
-pygame.draw.line(Ventana, color2, (Xi+AnTab+2,Yi+AlTab+2), (Xi-2,Yi+AlTab+2) , 4)
-pygame.draw.line(Ventana, color2, (Xi-2,Yi+AlTab+2), (Xi-2,Yi-2) , 4)
+#-----Datos para la creacion del tablero -----
+DimTablero = 400 
+AltoCasilla = 10
+AnchoCasilla = 10
+Margen = 5
+
+def Iterador(AnchoCas, Marg, DimVent):
+    i = 0
+    n = 0
+    a = AnchoCas + Marg
+    while n < DimVent:
+        yield n
+        i += 1
+        n = i*a
+#----- Final de los datos -----
 
 """
 #-----Solicitud de Dimensiones del tablero-----
@@ -39,9 +52,18 @@ while True:
 
 
 while True:                             # Loop infinito para mantener abierta la ventana
+    
     for Evento in pygame.event.get():       # Se hara un recorrido a traves de los diferentes tipos de eventos que tiene la libreria
         if Evento.type == QUIT:
             pygame.quit()
             sys.exit
-
+    
+    #Dibujar Tablero cuadriculado:
+    for columna in Iterador(AnchoCasilla,Margen,DimTablero):
+        for fila in Iterador(AnchoCasilla,Margen,DimTablero):
+            pygame.draw.rect(Ventana,negro,(columna,fila + Margen,Margen,AltoCasilla))
+            pygame.draw.rect(Ventana,blanco,(columna + Margen,fila + Margen, AnchoCasilla, AltoCasilla))
+    #-------
+    
+    
     pygame.display.update()
