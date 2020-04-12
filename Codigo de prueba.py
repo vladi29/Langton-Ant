@@ -4,8 +4,8 @@ from random import randint
 
 pygame.init()                           # A partir de esta linea funcionaran todas las instrucciones de pygame
 
-DimVentana = 500
-Ventana = pygame.display.set_mode((DimVentana,DimVentana))
+DimTablero = 500
+Ventana = pygame.display.set_mode((DimTablero,DimTablero))
 pygame.display.set_caption('Programa de prueba')
 
 azul = pygame.Color(50,50,200)
@@ -36,8 +36,8 @@ while True:                             # Loop infinito para mantener abierta la
         if Evento.type == QUIT:
             pygame.quit()
             sys.exit
-    for columna in Iterador(Ancho,margen,DimVentana):
-        for fila in Iterador(Ancho,margen,DimVentana):
+    for columna in Iterador(Ancho,margen,DimTablero):
+        for fila in Iterador(Ancho,margen,DimTablero):
             pygame.draw.rect(Ventana,negro,(columna,fila,margen,Alto))
             pygame.draw.rect(Ventana,azul,(columna + margen,fila + margen, Ancho,Alto))
     pygame.display.update()
