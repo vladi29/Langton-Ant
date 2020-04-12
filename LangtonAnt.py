@@ -10,14 +10,27 @@ color2 = pygame.Color(255,255,255)  #Naranja // Este si es tipo color
 
 pygame.init()                           # A partir de esta linea funcionaran todas las instrucciones de pygame
 
-Ventana = pygame.display.set_mode((400,300))
-pygame.display.set_caption('Ventana para la hormiga de Langton')
-Ventana.fill(color1)
-pygame.draw.line(Ventana,color2,(60,80), (160,100), 4)  #pygame.draw.line(donde estara la linea, color de la linea, (xi,yi), (xf,yf), ancho de la linea )
+A = 700
+Al = 350
+Ventana = pygame.display.set_mode((A,Al))
+pygame.display.set_caption('Hormiga de Langton')
 
-print(color2.r)      #Como extraer la saturacion roja de un color
-print(color2.g)      #Como extraer la saturacion verde de un color
-print(color2.b)      #Como extraer la saturacion azul de un color
+#-----Solicitud de Dimensiones del tablero-----
+while True:
+    try:
+        Dimension = int(input('Por favor ingresa la dimension de tu tablero: '))
+        break
+    except(TypeError, ValueError):
+        print('Hey! Eso no es un numero.\nIntentalo otra vez.')
+#-----Final de la solicitud-----
+
+#print(color2.r)      #Como extraer la saturacion roja de un color
+#print(color2.g)      #Como extraer la saturacion verde de un color
+#print(color2.b)      #Como extraer la saturacion azul de un color
+
+#Dibujar diferentes poligonos:
+
+
 
 while True:                             # Loop infinito para mantener abierta la ventana
 
