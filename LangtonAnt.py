@@ -14,29 +14,31 @@ negro = pygame.Color(0,0,0)
 color1 = pygame.Color(128,64,0)     #Madera
 #-----
 
-AnVen = 700
-AlVen = 700
-AnTab = 300
-AlTab = 300
-(Xi,Yi) = (AnVen/2 - AnTab/2, AlVen/2 - AlTab/2)
+AnVen = 800
+AlVen = 500
 Ventana = pygame.display.set_mode((AnVen,AlVen))
 pygame.display.set_caption('Hormiga de Langton')
 Ventana.fill(color1)
 
 #-----Datos para la creacion del tablero -----
-DimTablero = 400 
-AltoCasilla = 10
-AnchoCasilla = 10
-Margen = 5
+DimTablero = 400
+(Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
+AltoCasilla = 8
+AnchoCasilla = 8
+Margen = 4
 
-def Iterador(AnchoCas, Marg, DimVent):
+def Iterador(PosIni, AnchoCas, Marg, DimTab):
     i = 0
-    n = 0
+    n = PosIni
     a = AnchoCas + Marg
-    while n < DimVent:
+    b = int(DimTab/a)
+    while i <= b:
         yield n
-        i += 1
-        n = i*a
+        i = i + 1
+        n = n + a
+
+#print(*Iterador(Xi,AnchoCasilla,Margen,DimTablero))   #Iterador para las casillas en fila
+#print(*Iterador(Yi,AltoCasilla,Margen,DimTablero))    #Iterador para las casillas en colunmas
 #----- Final de los datos -----
 
 """
@@ -59,9 +61,10 @@ while True:                             # Loop infinito para mantener abierta la
             sys.exit
     
     #Dibujar Tablero cuadriculado:
-    for columna in Iterador(AnchoCasilla,Margen,DimTablero):
-        for fila in Iterador(AnchoCasilla,Margen,DimTablero):
-            pygame.draw.rect(Ventana,negro,(columna,fila + Margen,Margen,AltoCasilla))
+    for columna in Iterador(Xi,AnchoCasilla,Margen,DimTablero):
+        for fila in Iterador(Yi,AltoCasilla,Margen,DimTablero):
+            pygame.draw.rect(Ventana,negro,(columna, fila, Margen + AnchoCasilla, Margen))
+            pygame.draw.rect(Ventana,negro,(columna, fila + Margen, Margen, AltoCasilla))
             pygame.draw.rect(Ventana,blanco,(columna + Margen,fila + Margen, AnchoCasilla, AltoCasilla))
     #-------
     

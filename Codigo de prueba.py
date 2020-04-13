@@ -4,40 +4,49 @@ from random import randint
 
 pygame.init()                           # A partir de esta linea funcionaran todas las instrucciones de pygame
 
-DimTablero = 500
-Ventana = pygame.display.set_mode((DimTablero,DimTablero))
+AnVen = 800
+AlVen = 500
+Ventana = pygame.display.set_mode((AnVen,AlVen))
 pygame.display.set_caption('Programa de prueba')
 
 azul = pygame.Color(50,50,200)
 negro = pygame.Color(0,0,0)
 blanco = pygame.Color(255,255,255)
-Alto = 10
-Ancho = 10
-margen = 4
+gris = pygame.Color(125,125,125)
+Ventana.fill(gris)
+
+DimTablero = 400
+(Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
+AltoCasilla = 10
+AnchoCasilla = 10
+Margen = 5
 
 
-def Iterador(anch,marg,DimVent):
+
+def Iterador(PosIni, AnchoCas, Marg, DimTab):
     i = 0
-    n = 0
-    a = anch + marg
-    while n < DimVent:
+    n = PosIni
+    a = AnchoCas + Marg
+    b = int(DimTab/a)
+    while i < b:
         yield n
-        i += 1
-        n = i*a
+        i = i + 1
+        n = n + a
 
-#Dim = Iterador(Ancho,margen,DimVentana)    Usando esto arroja error ya que esto es una direccion de memoria en donde estan los valores del iterador
-#print(*Dim)
-
-#Dim = [0 ,25, 50, 75, 100, 125, 150, 175, 200, 225, 250]
-#print(Dim)
+#print(*Iterador(Xi,AnchoCasilla,Margen,DimTablero))   #Iterador para las casillas en fila
+#print(*Iterador(Yi,AltoCasilla,Margen,DimTablero))    #Iterador para las casillas en colunmas
 
 while True:                             # Loop infinito para mantener abierta la ventana
+    
     for Evento in pygame.event.get():       # Se hara un recorrido a traves de los diferentes tipos de eventos que tiene la libreria
         if Evento.type == QUIT:
             pygame.quit()
             sys.exit
-    for columna in Iterador(Ancho,margen,DimTablero):
-        for fila in Iterador(Ancho,margen,DimTablero):
-            pygame.draw.rect(Ventana,blanco,(columna,fila,margen,Alto))
-            pygame.draw.rect(Ventana,azul,(columna + margen,fila + margen, Ancho,Alto))
-    pygame.display.update()
+    
+    #Dibujar Tablero cuadriculado:
+    for columna in Iterador(Xi,AnchoCasilla,Margen,DimTablero):
+        for fila in Iterador(Yi,AltoCasilla,Margen,DimTablero):
+            pygame.draw.rect(Ventana,negro,(columna, fila, Margen + AnchoCasilla, Margen))
+            pygame.draw.rect(Ventana,negro,(columna, fila + Margen, Margen, AltoCasilla))
+            pygame.draw.rect(Ventana,blanco,(columna + Margen,fila + Margen, AnchoCasilla, AltoCasilla))
+    #-------
