@@ -22,12 +22,12 @@ pygame.display.set_caption('Hormiga de Langton')
 Ventana.fill(AzulC)
 
 #----- Datos para la creacion del tablero ------
-DimTablero = 402
+DimTablero = 400
 (Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
-pygame.draw.rect(Ventana, gris, (Xi, Yi, DimTablero, DimTablero))
 AltoCasilla = 6
 AnchoCasilla = 6
 Margen = 2
+pygame.draw.rect(Ventana, gris, (Xi, Yi, DimTablero, DimTablero + Margen))
 
 def Iterador(PosIni, AnchoCas, Marg, DimTab):
     i = 0
