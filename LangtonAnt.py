@@ -11,6 +11,7 @@ pygame.init()                           # A partir de esta linea funcionaran tod
 #-----Colores-----
 blanco = pygame.Color(255,255,255)
 negro = pygame.Color(0,0,0)
+gris = pygame.Color(125,125,125)
 color1 = pygame.Color(128,64,0)     #Madera
 #-----
 
@@ -23,6 +24,7 @@ Ventana.fill(color1)
 #-----Datos para la creacion del tablero -----
 DimTablero = 400
 (Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
+pygame.draw.rect(Ventana, gris, (Xi, Yi, DimTablero, DimTablero))
 AltoCasilla = 8
 AnchoCasilla = 8
 Margen = 4
@@ -32,7 +34,7 @@ def Iterador(PosIni, AnchoCas, Marg, DimTab):
     n = PosIni
     a = AnchoCas + Marg
     b = int(DimTab/a)
-    while i <= b:
+    while i < b:
         yield n
         i = i + 1
         n = n + a
@@ -63,8 +65,8 @@ while True:                             # Loop infinito para mantener abierta la
     #Dibujar Tablero cuadriculado:
     for columna in Iterador(Xi,AnchoCasilla,Margen,DimTablero):
         for fila in Iterador(Yi,AltoCasilla,Margen,DimTablero):
-            pygame.draw.rect(Ventana,negro,(columna, fila, Margen + AnchoCasilla, Margen))
-            pygame.draw.rect(Ventana,negro,(columna, fila + Margen, Margen, AltoCasilla))
+            #pygame.draw.rect(Ventana,gris,(columna, fila, Margen + AnchoCasilla, Margen))
+            #pygame.draw.rect(Ventana,gris,(columna, fila + Margen, Margen, AltoCasilla))
             pygame.draw.rect(Ventana,blanco,(columna + Margen,fila + Margen, AnchoCasilla, AltoCasilla))
     #-------
     
