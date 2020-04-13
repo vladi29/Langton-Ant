@@ -4,37 +4,26 @@ from random import randint
 
 pygame.init()                           # A partir de esta linea funcionaran todas las instrucciones de pygame
 
+#----- Colores -----
+blanco = pygame.Color(255,255,255)
+negro = pygame.Color(0,0,0)
+gris = pygame.Color(125,125,125)
+AzulC = pygame.Color(26,196,178)
+
+#----- Ventana -----
 AnVen = 800
 AlVen = 500
 Ventana = pygame.display.set_mode((AnVen,AlVen))
-pygame.display.set_caption('Programa de prueba')
+pygame.display.set_caption('Hormiga de Langton')
+Ventana.fill(AzulC)
 
-azul = pygame.Color(50,50,200)
-negro = pygame.Color(0,0,0)
-blanco = pygame.Color(255,255,255)
-gris = pygame.Color(125,125,125)
-Ventana.fill(gris)
+#----- Areglo de pixeles ----- 
 
-DimTablero = 400
-(Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
-AltoCasilla = 10
-AnchoCasilla = 10
-Margen = 5
+Surf = pygame.Surface((8,8))
+CeldaViva = Surf.fill(blanco)
+CeldaMuerta = Surf.fill(negro)
 
-
-
-def Iterador(PosIni, AnchoCas, Marg, DimTab):
-    i = 0
-    n = PosIni
-    a = AnchoCas + Marg
-    b = int(DimTab/a)
-    while i < b:
-        yield n
-        i = i + 1
-        n = n + a
-
-#print(*Iterador(Xi,AnchoCasilla,Margen,DimTablero))   #Iterador para las casillas en fila
-#print(*Iterador(Yi,AltoCasilla,Margen,DimTablero))    #Iterador para las casillas en colunmas
+Surf.set_at((50, 50), blanco)
 
 while True:                             # Loop infinito para mantener abierta la ventana
     
@@ -43,10 +32,4 @@ while True:                             # Loop infinito para mantener abierta la
             pygame.quit()
             sys.exit
     
-    #Dibujar Tablero cuadriculado:
-    for columna in Iterador(Xi,AnchoCasilla,Margen,DimTablero):
-        for fila in Iterador(Yi,AltoCasilla,Margen,DimTablero):
-            pygame.draw.rect(Ventana,negro,(columna, fila, Margen + AnchoCasilla, Margen))
-            pygame.draw.rect(Ventana,negro,(columna, fila + Margen, Margen, AltoCasilla))
-            pygame.draw.rect(Ventana,blanco,(columna + Margen,fila + Margen, AnchoCasilla, AltoCasilla))
-    #-------
+    pygame.display.update()

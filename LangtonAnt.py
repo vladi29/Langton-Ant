@@ -8,26 +8,26 @@ from random import randint
 
 pygame.init()                           # A partir de esta linea funcionaran todas las instrucciones de pygame
 
-#-----Colores-----
+#----- Colores -----
 blanco = pygame.Color(255,255,255)
 negro = pygame.Color(0,0,0)
 gris = pygame.Color(125,125,125)
-color1 = pygame.Color(128,64,0)     #Madera
-#-----
+AzulC = pygame.Color(26,196,178)
 
+#----- Ventana -----
 AnVen = 800
-AlVen = 500
+AlVen = 450
 Ventana = pygame.display.set_mode((AnVen,AlVen))
 pygame.display.set_caption('Hormiga de Langton')
-Ventana.fill(color1)
+Ventana.fill(AzulC)
 
-#-----Datos para la creacion del tablero -----
-DimTablero = 400
+#----- Datos para la creacion del tablero ------
+DimTablero = 402
 (Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
 pygame.draw.rect(Ventana, gris, (Xi, Yi, DimTablero, DimTablero))
-AltoCasilla = 8
-AnchoCasilla = 8
-Margen = 4
+AltoCasilla = 6
+AnchoCasilla = 6
+Margen = 2
 
 def Iterador(PosIni, AnchoCas, Marg, DimTab):
     i = 0
@@ -42,6 +42,13 @@ def Iterador(PosIni, AnchoCas, Marg, DimTab):
 #print(*Iterador(Xi,AnchoCasilla,Margen,DimTablero))   #Iterador para las casillas en fila
 #print(*Iterador(Yi,AltoCasilla,Margen,DimTablero))    #Iterador para las casillas en colunmas
 #----- Final de los datos -----
+
+#----- Dibujar Tablero cuadriculado: -----
+for columna in Iterador(Xi,AnchoCasilla,Margen,DimTablero):
+    for fila in Iterador(Yi,AltoCasilla,Margen,DimTablero):
+        pygame.draw.rect(Ventana,blanco,(columna + Margen,fila + Margen, AnchoCasilla, AltoCasilla))
+        #pygame.draw.rect(Ventana,gris,(columna, fila, Margen + AnchoCasilla, Margen))
+        #pygame.draw.rect(Ventana,gris,(columna, fila + Margen, Margen, AltoCasilla))
 
 """
 #-----Solicitud de Dimensiones del tablero-----
@@ -62,13 +69,8 @@ while True:                             # Loop infinito para mantener abierta la
             pygame.quit()
             sys.exit
     
-    #Dibujar Tablero cuadriculado:
-    for columna in Iterador(Xi,AnchoCasilla,Margen,DimTablero):
-        for fila in Iterador(Yi,AltoCasilla,Margen,DimTablero):
-            #pygame.draw.rect(Ventana,gris,(columna, fila, Margen + AnchoCasilla, Margen))
-            #pygame.draw.rect(Ventana,gris,(columna, fila + Margen, Margen, AltoCasilla))
-            pygame.draw.rect(Ventana,blanco,(columna + Margen,fila + Margen, AnchoCasilla, AltoCasilla))
-    #-------
-    
-    
+    #Colocar hormigas:
+
+    (Xm, Ym) = pygame.mouse.get_pos()
+    #print(Xm , Ym)
     pygame.display.update()
