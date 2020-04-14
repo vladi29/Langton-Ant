@@ -27,7 +27,7 @@ DimTablero = 400
 AltoCasilla = 6
 AnchoCasilla = 6
 Margen = 2
-pygame.draw.rect(Ventana, gris, (Xi, Yi, DimTablero, DimTablero + Margen))
+pygame.draw.rect(Ventana, gris, (Xi, Yi, DimTablero + Margen, DimTablero + Margen))
 
 def Iterador(PosIni, AnchoCas, Marg, DimTab):
     i = 0
