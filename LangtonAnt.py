@@ -50,6 +50,13 @@ for columna in Iterador(Xi,AnchoCasilla,Margen,DimTablero):
         #pygame.draw.rect(Ventana,gris,(columna, fila, Margen + AnchoCasilla, Margen))
         #pygame.draw.rect(Ventana,gris,(columna, fila + Margen, Margen, AltoCasilla))
 
+
+#----- Creacion de matrices auxiliares -----
+NumCel = int(DimTablero/(AltoCasilla + Margen))
+MatColores = [[0 for x in range(NumCel)] for y in range(NumCel)]
+MatHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]
+
+
 """
 #-----Solicitud de Dimensiones del tablero-----
 while True:
@@ -68,9 +75,19 @@ while True:                             # Loop infinito para mantener abierta la
         if Evento.type == QUIT:
             pygame.quit()
             sys.exit
-    
-    #Colocar hormigas:
+        elif Evento.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.mouse.get_pressed() == (True, 0, 0):
+                (Xm, Ym) = pygame.mouse.get_pos()
+                if(Xi <= Xm < Xi + DimTablero and Yi <= Ym < Yi + DimTablero):
+                    Xnew = int((Xm-Xi)/(AnchoCasilla + Margen))
+                    Ynew = int((Ym-Yi)/(AltoCasilla + Margen))
+                    MatHormigas[Ynew][Xnew] = 1
+                    print((Ynew,Xnew))
+                    #print(MatHormigas)  
+        
+        #elif Evento.type = pygame.KEYDOWN:
+            
+    #----- Instrucciones del automata -----
 
-    (Xm, Ym) = pygame.mouse.get_pos()
-    #print(Xm , Ym)
+
     pygame.display.update()
