@@ -1,4 +1,14 @@
+import pygame
 import copy
+from pygame.locals import *
+
+pygame.init()
+
+AnVen = 800
+AlVen = 450
+Ventana = pygame.display.set_mode((AnVen,AlVen))
+pygame.display.set_caption('otro')
+Ventana.fill((26,196,178))
 
 DimTablero = 50
 #(Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
@@ -10,35 +20,37 @@ NumCel = int(DimTablero/(AltoCasilla + Margen))
 MatColores = [[0 for x in range(NumCel)] for y in range(NumCel)]
 MatHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]
 MatAuxHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]
-MatDirecciones = [[0 for x in range(NumCel)] for y in range(NumCel)] 
+MatDirecciones = [[2 for x in range(NumCel)] for y in range(NumCel)] 
 MatAuxDirecciones = [[0 for x in range(NumCel)] for y in range(NumCel)]
 MatZeros =  [[0 for x in range(NumCel)] for y in range(NumCel)]
 Norte, Este, Sur, Oeste = 0, 1, 2, 3
-Dir = Norte
+
+
+MatHormigas[5][4] = 1
+#MatDirecciones[5][4] = 2
 
 MatHormigas[5][5] = 1
-MatDirecciones[5][5] = 2
+#MatDirecciones[5][5] = 2
 
 MatHormigas[5][6] = 1
-MatDirecciones[5][6] = 2
+#MatDirecciones[5][6] = 2
 
 MatHormigas[5][7] = 1
-MatDirecciones[5][7] = 2
-
-MatHormigas[5][8] = 1
-MatDirecciones[5][8] = 2
-
-#MatHormigas[18][18] = 1
-#MatDirecciones[18][18] = 1
-#MatColores[18][18] = 1
+#MatDirecciones[5][7] = 2
 
 print(MatHormigas)
 #print(MatDirecciones)
 #print(MatColores)
 
-
-l = 0
-while l < 3:
+aux = 0
+while True:
+    for Evento in pygame.event.get():        # Se hara un recorrido a traves de los diferentes tipos de eventos que tiene la libreria
+        if Evento.type == QUIT:
+            pygame.quit()
+            sys.exit
+    
+    reloj = pygame.time.Clock()
+    reloj.tick(2)
     i, j = 0, 0
     while i < NumCel - 1:
         while j < NumCel -1:
@@ -92,8 +104,8 @@ while l < 3:
                 j = j + 1
         j = 0 
         i = i + 1          
-    print(l)
-    l = l + 1
+    aux = aux + 1
+    print(aux)
     MatHormigas = copy.deepcopy(MatAuxHormigas)    
     MatDirecciones = copy.deepcopy(MatAuxDirecciones)
     print(MatHormigas)   
@@ -101,4 +113,7 @@ while l < 3:
     print(MatColores)
     MatAuxHormigas = copy.deepcopy(MatZeros)
     MatAuxDirecciones = copy.deepcopy(MatZeros)
+    
+
+    pygame.display.update()
     
