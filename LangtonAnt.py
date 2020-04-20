@@ -155,7 +155,12 @@ while True:                                                             #Loop in
                         MatAuxDirecciones[i + 1][j] = 2
                         MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
                         j = j + 1
-            else: 
+            if MatHormigas[i][j] > 1:
+                aux = MatHormigas[i][j]
+                while aux > 0 
+
+                aux = aux - 1
+            elif MatHormigas[i][j] == 0: 
                 j = j + 1
         j = 0 
         i = i + 1          
