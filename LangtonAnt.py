@@ -112,22 +112,26 @@ while True:                                                             #Loop in
                     #print((j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen))
                     if MatDirecciones[i][j] == 0:
                         MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i][j + 1] = 1
+                        if MatAuxHormigas[i][j + 1] == 0:
+                            MatAuxDirecciones[i][j + 1] = 1
                         MatAuxHormigas[i][j + 1] = MatAuxHormigas[i][j + 1] + 1
                         j = j + 1
                     elif MatDirecciones[i][j] == 1:
                         MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i + 1][j] = 2
+                        if MatAuxHormigas[i + 1][j] == 0:     
+                            MatAuxDirecciones[i + 1][j] = 2
                         MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
                         j = j + 1
                     elif MatDirecciones[i][j] == 2:
-                        MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i][j - 1] = 3
+                        MatDirecciones[i][j] = 0    
+                        if MatAuxHormigas[i][j - 1] == 0:
+                            MatAuxDirecciones[i][j - 1] = 3
                         MatAuxHormigas[i][j - 1] = MatAuxHormigas[i][j - 1] + 1
                         j = j + 1 
                     elif MatDirecciones[i][j] == 3:
                         MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i - 1][j] = 0
+                        if MatAuxHormigas[i - 1][j] == 0:
+                            MatAuxDirecciones[i - 1][j] = 0
                         MatAuxHormigas[i - 1][j] = MatAuxHormigas[i - 1][j] + 1
                         j = j + 1
                 elif MatColores[i][j] == 1:
@@ -137,22 +141,26 @@ while True:                                                             #Loop in
                     #print((j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen))
                     if MatDirecciones[i][j] == 0:
                         MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i][j - 1] = 3
+                        if MatAuxHormigas[i][j - 1] == 0:
+                            MatAuxDirecciones[i][j - 1] = 3
                         MatAuxHormigas[i][j - 1] = MatAuxHormigas[i][j - 1] + 1
                         j = j + 1
                     elif MatDirecciones[i][j] == 1:
                         MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i - 1][j] = 0
+                        if MatAuxHormigas[i - 1][j] == 0:
+                            MatAuxDirecciones[i - 1][j] = 0
                         MatAuxHormigas[i - 1][j] = MatAuxHormigas[i - 1][j] + 1
                         j = j + 1
                     elif MatDirecciones[i][j] == 2:
                         MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i][j + 1] = 1
+                        if MatAuxHormigas[i][j + 1] == 0:
+                            MatAuxDirecciones[i][j + 1] = 1
                         MatAuxHormigas[i][j + 1] = MatAuxHormigas[i][j + 1] + 1
                         j = j + 1 
                     elif MatDirecciones[i][j] == 3:
                         MatDirecciones[i][j] = 0
-                        MatAuxDirecciones[i + 1][j] = 2
+                        if MatAuxHormigas[i + 1][j] ==0: 
+                            MatAuxDirecciones[i + 1][j] = 2
                         MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
                         j = j + 1
             if MatHormigas[i][j] > 1:
