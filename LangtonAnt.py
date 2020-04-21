@@ -99,7 +99,7 @@ cont = 0
 while True:                                                             #Loop infinito para mantener abierta la ventana
     
     Reloj = pygame.time.Clock()                                         #Reloj funcionando a 1 cuadro por segundo
-    Reloj.tick(3)
+    Reloj.tick(5)
     #----- Intrucciones del automata-----
     i, j = 0, 0
     while i < NumCel - 1:
