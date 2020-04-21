@@ -1,14 +1,15 @@
 # Caracas, Venezuela.
 # Fecha de inicio: 10/04/2020.
 # Final: 21/04/2020
-# Hormiga de Langton por Vladimir Alfaro
+# Hormiga de Langton 
+#Por Vladimir Alfaro
 # Version 1.0
 
 import pygame, sys, copy
 from pygame.locals import *
 from random import randint
 
-pygame.init()                                        #A partir de esta linea funcionaran todas las instrucciones de pygame
+pygame.init()
 
 #----- Colores -----
 blanco = pygame.Color(255,255,255)
@@ -43,7 +44,7 @@ AnchoCasilla = 6
 Margen = 2
 pygame.draw.rect(Ventana, gris, (Xi, Yi, DimTablero + Margen, DimTablero + Margen))
 
-def Iterador(PosIni, AnchoCas, Marg, DimTab):
+def Iterador(PosIni, AnchoCas, Marg, DimTab):         #Iterador para determinar las posiciones reales de las celdas que se van a dibujar
     i = 0
     n = PosIni
     a = AnchoCas + Marg
@@ -70,7 +71,7 @@ MatAuxHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]            
 MatDirecciones = [[[2 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]        #Matriz de direcciones de cada hormiga
 MatAuxDirExtras = [[[0 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]       #Matriz para tener mas de una hormiga en cada celda
 MatZeros =  [[0 for x in range(NumCel)] for y in range(NumCel)]                                 #Matriz completa de ceros
-MatZeros1 =  [[[0 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]       #Matriz completa de ceros
+MatZeros1 =  [[[0 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]            #Matriz completa de ceros
 Norte, Este, Sur, Oeste = 0, 1, 2, 3                                                            #Direcciones enumeradas
 
 #----- Ubicacion de hormigas en el tablero -----
@@ -105,7 +106,7 @@ while True:                                                             #Loop in
     while i < NumCel - 1:
         while j < NumCel -1:
             if MatHormigas[i][j] > 0:
-                l = MatHormigas[i][j]            #Puede valer 0, 1, 2, 3 o 4   
+                l = MatHormigas[i][j]                                   #Puede valer 0, 1, 2, 3 o 4   
                 if MatColores[i][j] == 0:
                     MatColores[i][j] = 1
                     #Aqui deberia pintar los cuadros de blanco
