@@ -67,10 +67,11 @@ NumCel = int(DimTablero/(AltoCasilla + Margen))                                 
 MatColores = [[0 for x in range(NumCel)] for y in range(NumCel)]                                #Matriz de colores del tablero
 MatHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]                               #Matriz de hormigas
 MatAuxHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]                            #Matriz de hormigas auxiliar
-MatDirecciones = [[2 for x in range(NumCel)] for y in range(NumCel)]                            #Matriz de direcciones de cada hormiga
+MatDirecciones = [[[2 for x in range(NumCel)] for x in range(NumCel)] for y in range(NumCel)]   #Matriz de direcciones de cada hormiga
 MatAuxDirecciones = [[0 for x in range(NumCel)] for y in range(NumCel)]                         #Matriz de direcciones auxiliar
 MatAuxDirExtras = [[[0 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]       #Matriz para tener mas de una hormiga en cada celda
 MatZeros =  [[0 for x in range(NumCel)] for y in range(NumCel)]                                 #Matriz completa de ceros
+MatZeros1 =  [[[0 for x in range(NumCel)] for x in range(NumCel)] for y in range(NumCel)]       #Matriz completa de ceros
 Norte, Este, Sur, Oeste = 0, 1, 2, 3                                                            #Direcciones enumeradas
 
 #----- Ubicacion de hormigas en el tablero -----
@@ -102,110 +103,81 @@ while True:                                                             #Loop in
     i, j = 0, 0
     while i < NumCel - 1:
         while j < NumCel -1:
-            if MatHormigas[i][j] == 1:
-                MatHormigas[i][j] = MatHormigas[i][j] - 1   
+            if MatHormigas[i][j] > 0:
+                l = MatHormigas[i][j]            #Puede valer 0, 1, 2, 3 o 4   
                 if MatColores[i][j] == 0:
                     MatColores[i][j] = 1
                     #Aqui deberia pintar los cuadros de blanco
                     #pygame.draw.rect(Ventana, blanco, (j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen, AnchoCasilla, AltoCasilla))
                     #print((j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen))
-                    if MatDirecciones[i][j] == 0:
-                        MatDirecciones[i][j] = 0
-                        k = MatAuxHormigas[i][j + 1] 
-                        if k == 0:
-                            MatAuxDirecciones[i][j + 1] = 1
-                        else: 
+                    while l > 0:
+                        l = l - 1
+                        if MatDirecciones[i][j][l] == 0:
+                            MatDirecciones[i][j][l] = 0 
+                            k = MatAuxHormigas[i][j + 1]
                             MatAuxDirExtras[i][j + 1][k] = 1
-                        MatAuxHormigas[i][j + 1] = MatAuxHormigas[i][j + 1] + 1
-                        j = j + 1
-                    elif MatDirecciones[i][j] == 1:
-                        MatDirecciones[i][j] = 0
-                        k = MatAuxHormigas[i + 1][j]
-                        if k == 0:     
-                            MatAuxDirecciones[i + 1][j] = 2
-                        else: 
+                            MatAuxHormigas[i][j + 1] = MatAuxHormigas[i][j + 1] + 1
+
+                        elif MatDirecciones[i][j][l] == 1:
+                            MatDirecciones[i][j][l] = 0
+                            k = MatAuxHormigas[i + 1][j]
                             MatAuxDirExtras[i + 1][j][k] = 2
-                        MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
-                        j = j + 1
-                    elif MatDirecciones[i][j] == 2:
-                        MatDirecciones[i][j] = 0    
-                        k = MatAuxHormigas[i][j - 1]
-                        if k == 0:
-                            MatAuxDirecciones[i][j - 1] = 3
-                        else:
+                            MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
+
+                        elif MatDirecciones[i][j][l] == 2:
+                            MatDirecciones[i][j][l] = 0    
+                            k = MatAuxHormigas[i][j - 1]
                             MatAuxDirExtras[i][j - 1][k] = 3
-                        MatAuxHormigas[i][j - 1] = MatAuxHormigas[i][j - 1] + 1
-                        j = j + 1 
-                    elif MatDirecciones[i][j] == 3:
-                        MatDirecciones[i][j] = 0
-                        k = MatAuxHormigas[i - 1][j]
-                        if MatAuxHormigas[i - 1][j] == 0:
-                            MatAuxDirecciones[i - 1][j] = 0
-                        else:
+                            MatAuxHormigas[i][j - 1] = MatAuxHormigas[i][j - 1] + 1
+
+                        elif MatDirecciones[i][j][l] == 3:
+                            MatDirecciones[i][j][l] = 0
+                            k = MatAuxHormigas[i - 1][j]
                             MatAuxDirExtras[i - 1][j][k] = 0
-                        MatAuxHormigas[i - 1][j] = MatAuxHormigas[i - 1][j] + 1
-                        j = j + 1
+                            MatAuxHormigas[i - 1][j] = MatAuxHormigas[i - 1][j] + 1         
+                    j = j + 1
                 elif MatColores[i][j] == 1:
                     MatColores[i][j] = 0
                     #Aqui deberia pintar los cuadros de negro
                     #pygame.draw.rect(Ventana, negro, (j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen, AnchoCasilla, AltoCasilla))
                     #print((j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen))
-                    if MatDirecciones[i][j] == 0:
-                        MatDirecciones[i][j] = 0
-                        k = MatAuxHormigas[i][j - 1]
-                        if k == 0:
-                            MatAuxDirecciones[i][j - 1] = 3
-                        else:
-                            MatAuxDirExtras[i][j - 1][k]
-                        MatAuxHormigas[i][j - 1] = MatAuxHormigas[i][j - 1] + 1
-                        j = j + 1
-                    elif MatDirecciones[i][j] == 1:
-                        MatDirecciones[i][j] = 0
-                        k = MatAuxHormigas[i - 1][j]
-                        if MatAuxHormigas[i - 1][j] == 0:
-                            MatAuxDirecciones[i - 1][j] = 0
-                        else:
+                    while l > 0:
+                        l = l - 1
+                        if MatDirecciones[i][j][l] == 0:
+                            MatDirecciones[i][j][l] = 0
+                            k = MatAuxHormigas[i][j - 1]
+                            MatAuxDirExtras[i][j - 1][k] = 3
+                            MatAuxHormigas[i][j - 1] = MatAuxHormigas[i][j - 1] + 1
+                        
+                        elif MatDirecciones[i][j][l] == 1:
+                            MatDirecciones[i][j][l] = 0
+                            k = MatAuxHormigas[i - 1][j]
                             MatAuxDirExtras[i - 1][j][k] = 0
-                        MatAuxHormigas[i - 1][j] = MatAuxHormigas[i - 1][j] + 1
-                        j = j + 1
-                    elif MatDirecciones[i][j] == 2:
-                        MatDirecciones[i][j] = 0
-                        k = MatAuxHormigas[i][j + 1]
-                        if MatAuxHormigas[i][j + 1] == 0:
-                            MatAuxDirecciones[i][j + 1] = 1
-                        else:
+                            MatAuxHormigas[i - 1][j] = MatAuxHormigas[i - 1][j] + 1
+
+                        elif MatDirecciones[i][j][l] == 2:
+                            MatDirecciones[i][j][l] = 0
+                            k = MatAuxHormigas[i][j + 1]
                             MatAuxDirExtras[i][j + 1][k] = 1
-                        MatAuxHormigas[i][j + 1] = MatAuxHormigas[i][j + 1] + 1
-                        j = j + 1 
-                    elif MatDirecciones[i][j] == 3:
-                        MatDirecciones[i][j] = 0
-                        k = MatAuxHormigas[i + 1][j]
-                        if k == 0: 
-                            MatAuxDirecciones[i + 1][j] = 2
-                        else: 
+                            MatAuxHormigas[i][j + 1] = MatAuxHormigas[i][j + 1] + 1
+                        
+                        elif MatDirecciones[i][j][l] == 3:
+                            MatDirecciones[i][j][l] = 0
+                            k = MatAuxHormigas[i + 1][j]
                             MatAuxDirExtras[i + 1][j][k] = 2
-                        MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
-                        j = j + 1
-            #elif MatHormigas[i][j] == 2 or MatHormigas[i][j] == 3:
-            #    k = MatHormigas[i][j]
-            #    while k > 0:
-            #    if MatColores[i][j] == 0:
-            #        MatColores[i][j] = 1
-
-            #    elif MatColores[i][j] == 1:
-            #        MatColores[i][j] = 0
-
-            elif MatHormigas[i][j] == 0: 
+                            MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
+                        
+            else: 
                 j = j + 1
         j = 0 
         i = i + 1          
     MatHormigas = copy.deepcopy(MatAuxHormigas)    
-    MatDirecciones = copy.deepcopy(MatAuxDirecciones)
+    MatDirecciones = copy.deepcopy(MatAuxDirExtras)
     print(MatHormigas)   
     #print(MatDirecciones)
     #print(MatColores)
     MatAuxHormigas = copy.deepcopy(MatZeros)
-    MatAuxDirecciones = copy.deepcopy(MatZeros)
+    MatAuxDirExtras = copy.deepcopy(MatZeros1)
     
     for Evento in pygame.event.get():                                   #Se hara un recorrido a traves de los diferentes tipos de eventos que tiene la libreria
         if Evento.type == QUIT:
