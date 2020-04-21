@@ -1,6 +1,6 @@
 # Caracas, Venezuela.
-# Inicio: 4 de Octubre de 2020.
-# Final: 
+# Fecha de inicio: 10/04/2020.
+# Final: 21/04/2020
 # Hormiga de Langton por Vladimir Alfaro
 # Version 1.0
 
