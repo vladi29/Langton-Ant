@@ -36,7 +36,7 @@ while True:
 #-----Final de la solicitud-----
 """
 
-DimTablero = 40
+DimTablero = 400
 (Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
 AltoCasilla = 6
 AnchoCasilla = 6
@@ -92,14 +92,14 @@ while True:
             break
     pygame.display.update()
 
-print(MatHormigas)
+#print(MatHormigas)
 #print(MatDirecciones)
 cont = 0
 
 while True:                                                             #Loop infinito para mantener abierta la ventana
     
     Reloj = pygame.time.Clock()                                         #Reloj funcionando a 1 cuadro por segundo
-    Reloj.tick(1)
+    Reloj.tick(3)
     #----- Intrucciones del automata-----
     i, j = 0, 0
     while i < NumCel - 1:
@@ -109,7 +109,7 @@ while True:                                                             #Loop in
                 if MatColores[i][j] == 0:
                     MatColores[i][j] = 1
                     #Aqui deberia pintar los cuadros de blanco
-                    #pygame.draw.rect(Ventana, blanco, (j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen, AnchoCasilla, AltoCasilla))
+                    pygame.draw.rect(Ventana, blanco, (j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen, AnchoCasilla, AltoCasilla))
                     #print((j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen))
                     while l > 0:
                         l = l - 1
@@ -140,7 +140,7 @@ while True:                                                             #Loop in
                 elif MatColores[i][j] == 1:
                     MatColores[i][j] = 0
                     #Aqui deberia pintar los cuadros de negro
-                    #pygame.draw.rect(Ventana, negro, (j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen, AnchoCasilla, AltoCasilla))
+                    pygame.draw.rect(Ventana, negro, (j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen, AnchoCasilla, AltoCasilla))
                     #print((j*(AltoCasilla + Margen) + Xi + Margen, i*(AnchoCasilla + Margen) + Yi + Margen))
                     while l > 0:
                         l = l - 1
@@ -175,8 +175,8 @@ while True:                                                             #Loop in
     cont = cont + 1
     MatHormigas = copy.deepcopy(MatAuxHormigas)    
     MatDirecciones = copy.deepcopy(MatAuxDirExtras)
-    print(cont)
-    print(MatHormigas)   
+    #print(cont)
+    #print(MatHormigas)   
     #print(MatDirecciones)
     #print(MatColores)
     MatAuxHormigas = copy.deepcopy(MatZeros)
