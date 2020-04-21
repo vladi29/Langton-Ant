@@ -36,7 +36,7 @@ while True:
 #-----Final de la solicitud-----
 """
 
-DimTablero = 400
+DimTablero = 40
 (Xi,Yi) = (AnVen/2 - DimTablero/2, AlVen/2 - DimTablero/2) 
 AltoCasilla = 6
 AnchoCasilla = 6
@@ -67,11 +67,10 @@ NumCel = int(DimTablero/(AltoCasilla + Margen))                                 
 MatColores = [[0 for x in range(NumCel)] for y in range(NumCel)]                                #Matriz de colores del tablero
 MatHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]                               #Matriz de hormigas
 MatAuxHormigas = [[0 for x in range(NumCel)] for y in range(NumCel)]                            #Matriz de hormigas auxiliar
-MatDirecciones = [[[2 for x in range(NumCel)] for x in range(NumCel)] for y in range(NumCel)]   #Matriz de direcciones de cada hormiga
-MatAuxDirecciones = [[0 for x in range(NumCel)] for y in range(NumCel)]                         #Matriz de direcciones auxiliar
+MatDirecciones = [[[2 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]        #Matriz de direcciones de cada hormiga
 MatAuxDirExtras = [[[0 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]       #Matriz para tener mas de una hormiga en cada celda
 MatZeros =  [[0 for x in range(NumCel)] for y in range(NumCel)]                                 #Matriz completa de ceros
-MatZeros1 =  [[[0 for x in range(NumCel)] for x in range(NumCel)] for y in range(NumCel)]       #Matriz completa de ceros
+MatZeros1 =  [[[0 for x in range(4)] for x in range(NumCel)] for y in range(NumCel)]       #Matriz completa de ceros
 Norte, Este, Sur, Oeste = 0, 1, 2, 3                                                            #Direcciones enumeradas
 
 #----- Ubicacion de hormigas en el tablero -----
@@ -94,6 +93,8 @@ while True:
     pygame.display.update()
 
 print(MatHormigas)
+#print(MatDirecciones)
+cont = 0
 
 while True:                                                             #Loop infinito para mantener abierta la ventana
     
@@ -166,13 +167,15 @@ while True:                                                             #Loop in
                             k = MatAuxHormigas[i + 1][j]
                             MatAuxDirExtras[i + 1][j][k] = 2
                             MatAuxHormigas[i + 1][j] = MatAuxHormigas[i + 1][j] + 1
-                        
+                    j = j + 1    
             else: 
                 j = j + 1
         j = 0 
         i = i + 1          
+    cont = cont + 1
     MatHormigas = copy.deepcopy(MatAuxHormigas)    
     MatDirecciones = copy.deepcopy(MatAuxDirExtras)
+    print(cont)
     print(MatHormigas)   
     #print(MatDirecciones)
     #print(MatColores)
